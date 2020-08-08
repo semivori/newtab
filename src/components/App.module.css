@@ -1,0 +1,13 @@
+.app {
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    padding-bottom: calc(1rem + 60px);
+}
+
+.backgroundBlur {
+    background-color: black;
+    opacity: .6;
+}

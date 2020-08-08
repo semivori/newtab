@@ -1,0 +1,16 @@
+.panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    max-height: 80%;
+}
+
+@media (max-width: 500px) {
+    .panel {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }   
+}

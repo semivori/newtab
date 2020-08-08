@@ -1,0 +1,9 @@
+.authButtons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.outButton {
+    margin-left: auto;
+}
