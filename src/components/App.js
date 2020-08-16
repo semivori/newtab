@@ -10,7 +10,7 @@ const App = props => {
     const classes = [styles.app];
     
     return (
-        <div className={classes.join(' ')} onContextMenu={e => {return true; e.preventDefault()}} >
+        <div className={classes.join(' ')} onContextMenu={e => {e.preventDefault()}} >
             {props.authUser && <Bookmarks />}
             <Settings />
         </div>
