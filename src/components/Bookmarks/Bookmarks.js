@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Panel from './Panel';
 import { withFirebase } from '../../firebase';
+import { withDataProvider } from '../../services/DataProvider';
 import { NameHelper } from '../../utils';
 import { withAuthUser } from '../Auth';
 import Modal from '../Modal';
@@ -32,31 +33,34 @@ export const SHORT_NAME_LENGTH = 2;
 let formModal = null;
 
 const Bookmarks = props => {
-    const { firebase, authUser } = props;
+    const { dataProvider, authUser } = props;
+
+    console.log(dataProvider);
+
     const [loading, setLoading] = useState(true);
     const [items, setItems] = useState([]);
     const [formStatus, setFormStatus] = useState(false);
     const setItemsFromSnapshot = useCallback(snapshot => {
-        setItems(firebase.getItemsFromSnapshot(snapshot));
-    }, [firebase]);
+        setItems(dataProvider.getItemsFromSnapshot(snapshot));
+    }, [dataProvider]);
 
     useEffect(() => {
-        firebase.bookmarks.get().orderByChild("user").equalTo(authUser.uid).once('value', snapshot => {
+        dataProvider.bookmarks.get().orderByChild("user").equalTo(authUser.uid).once('value', snapshot => {
             setItemsFromSnapshot(snapshot);
             setLoading(false);
         });
-    }, [firebase, authUser, setItemsFromSnapshot]);
+    }, [dataProvider, authUser, setItemsFromSnapshot]);
 
     const addBookmark = data => {
         const newItem = prepareData(data);
-        newItem.id = firebase.bookmarks.getNewKey();
+        newItem.id = dataProvider.bookmarks.getNewKey();
 
         setItems([
             ...items,
             newItem
         ]);
 
-        firebase.bookmarks.push(newItem).then(() => {
+        dataProvider.bookmarks.push(newItem).then(() => {
 
         });
     }
@@ -101,7 +105,7 @@ const Bookmarks = props => {
         });
 
         setItems(updatedItems);
-        firebase.bookmarks.update(id, updatedItem);
+        dataProvider.bookmarks.update(id, updatedItem);
     }
 
     const moveBookmark = (toLeft, id) => {
@@ -131,8 +135,8 @@ const Bookmarks = props => {
         });
 
         setItems(updatedItems);
-        firebase.bookmarks.update(selectedItem.id, selectedItem);
-        relatedItem && firebase.bookmarks.update(relatedItem.id, relatedItem);
+        dataProvider.bookmarks.update(selectedItem.id, selectedItem);
+        relatedItem && dataProvider.bookmarks.update(relatedItem.id, relatedItem);
     }
 
     const deleteBookmark = id => {
@@ -160,7 +164,7 @@ const Bookmarks = props => {
             });
 
         setItems(updatedItems);
-        firebase.bookmarks.remove(id).then(() => { });
+        dataProvider.bookmarks.remove(id).then(() => { });
     }
 
     const showAddForm = () => {
@@ -258,4 +262,4 @@ const Bookmarks = props => {
     );
 }
 
-export default withAuthUser(withFirebase(Bookmarks));
+export default withAuthUser(withDataProvider(Bookmarks));
