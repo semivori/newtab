@@ -2,11 +2,25 @@
   "name": "NewTab+",
   "version": "0.1",
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com https://api.unsplash.com https://apis.google.com https://www.googleapis.com;",
+  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com https://*.unsplash.com https://apis.google.com https://www.googleapis.com;",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "permissions": [
-    "storage"
+  "icons": [
+    {
+      "src": "icon16.png",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "icon32.png",
+      "sizes": "64x64 32x32 24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "icon128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
   ]
 }
