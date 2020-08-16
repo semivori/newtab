@@ -11,6 +11,17 @@ const BackgroundImage = (props) => {
     const getImage = useRef(new GetImage());
     const [bgImage, setBgImage] = useState();
     const [loadingStatus, setLoadingStatus] = useState();
+    const [btnStatus, setBtnStatus] = useState(true);
+
+    const disableBtn = useCallback(
+        () => {
+            setBtnStatus(false);
+            setTimeout(() => {
+                setBtnStatus(true);
+            }, 3000);
+        },
+        []
+    )
 
     const setImageTimeToStorage = useCallback(
         () => {
@@ -51,6 +62,7 @@ const BackgroundImage = (props) => {
                 image.src = imgUrl;
 
                 image.onload = () => {
+                    disableBtn();
                     setBgImage(imgUrl);
                     setLoadingStatus(false);
                     setImageSrcToStorage(imgUrl);
@@ -63,7 +75,15 @@ const BackgroundImage = (props) => {
                 setBgImage(srcFromStorage);
             }
         }
-    }, [getImage, getImageSrcFromStorage, setLoadingStatus, setBgImage, setImageSrcToStorage]);
+    }, 
+    [
+        getImage, 
+        getImageSrcFromStorage, 
+        setLoadingStatus, 
+        setBgImage, 
+        setImageSrcToStorage, 
+        disableBtn]
+    );
 
     const style = {
         backgroundImage: `url(${bgImage})`,
@@ -78,7 +98,8 @@ const BackgroundImage = (props) => {
     return (
         <div className={styles.bg} style={style}>
             {props.children}
-            <button type="button" onClick={forceUpdate} className={`button is-dark-transparent bbar bbar-2 ${loadingStatus && 'is-loading'}`}>
+            <button type="button" onClick={forceUpdate} disabled={!btnStatus}
+                    className={`button is-dark-transparent bbar bbar-2 ${loadingStatus && 'is-loading'}`}>
                 <ImageIcon />
             </button>
         </div>

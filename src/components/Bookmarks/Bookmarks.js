@@ -106,6 +106,11 @@ const Bookmarks = props => {
 
     const moveBookmark = (toLeft, id) => {
         const selectedItem = items.find(item => item.id === id);
+
+        if (selectedItem.position === 1 || selectedItem.position === items.length) {
+            return true;
+        }
+
         const relatedItem = items.find(item => {
             return toLeft ? item.position === selectedItem.position - 1 : item.position === selectedItem.position + 1;
         });

@@ -2,8 +2,13 @@
   "name": "NewTab+",
   "version": "0.1",
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com https://api.unsplash.com https://apis.google.com https://www.googleapis.com;",
+  "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com https://apis.google.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com https://*.unsplash.com https://apis.google.com https://www.googleapis.com;",
   "chrome_url_overrides": {
     "newtab": "index.html"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "128": "icon128.png"
   }
 }
