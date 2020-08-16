@@ -25,10 +25,7 @@ class Firebase {
 
     auth = {
         signInWithGoogle: () => {
-            const anonUid = this.authObject.currentUser.uid;
-            this.authObject.signInWithPopup(this.provider).then(result => {
-                this.bookmarks.updateUser(anonUid, result.user.uid);
-            });
+            this.authObject.signInWithPopup(this.provider);
         },
         signInAnonymously: () => {
             this.authObject.signInAnonymously().catch(function (error) {
